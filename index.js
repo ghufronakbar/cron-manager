@@ -3,6 +3,7 @@ dotenv.config();
 import cron from "node-cron";
 import unitrack from "./unitrack.js";
 import http from "http";
+import aquago from "./aquago.js";
 
 const server = http.createServer();
 
@@ -19,6 +20,16 @@ cron.schedule(unitrack.remindSchedule, async () => {
         console.log("CRON JOB REMIND TASKS DONE");
     } catch (error) {
         console.error("ERROR WHILE CRON JOB REMIND TASKS", error);
+    }
+});
+
+cron.schedule(aquago.remindSchedule, async () => {
+    try {
+        console.log("CRON JOB AQUAGO");
+        await aquago.remind()
+        console.log("CRON JOB AQUAGO DONE");
+    } catch (error) {
+        console.error("ERROR WHILE CRON JOB AQUAGO", error);
     }
 });
 
